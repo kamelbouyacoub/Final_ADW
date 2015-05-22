@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+		  xmlns:p="http://primefaces.org/ui">
+
+	 <h:body>
+    
+        <ui:composition template="/resources/templates/common.xhtml">
+
+		<ui:define name="content">
+			<center>
+			
+				<h:form id="frmRegisterPersonne">
+				
+					<script type="text/javascript">
+						function limpiarForm(){document.getElementById("frmRegisterPersonne").reset();}
+					</script>
+					
+				  	<p:growl id="msgRegisterPersonne" showDetail="true" sticky="false" />
+
+					<p:panel header="Registre Acteur">
+
+						<h:panelGrid columns="3" cellpadding="5">
+
+							<h:outputLabel value="Nom:" />
+							<p:inputText id="txtNom" size="50"
+								value="#{beanRegisterPersonne.personne.nom}" required="true"
+								requiredMessage="Nom">
+								<f:validator validatorId="videValidator" />
+							</p:inputText>
+							<p:message for="txtNom" />
+
+							<h:outputLabel value="Prenom:" />
+							<p:inputText id="txtPrenom" size="50"
+								value="#{beanRegisterPersonne.personne.prenom}" required="true"
+								requiredMessage="Preom">
+								<f:validator validatorId="videValidator" />
+							</p:inputText>
+							<p:message for="txtPrenom" />
+
+
+							<h:outputLabel value="Date Naissance:" />
+							<p:calendar id="txtDateNaissance"
+								value="#{beanRegisterPersonne.personne.dateNaissance}"
+								required="true" requiredMessage="Date Naissance" />
+							<p:message for="txtDateNaissance" />
+
+							<!-- peut être un capcha -->
+
+							<p:commandButton value="Enregistrer" ajax="false"
+								actionListener="#{beanRegisterPersonne.save()}"
+								oncomplete="limpiarForm()" />
+						
+						</h:panelGrid>				
+
+					</p:panel>
+					
+				</h:form> 
+				
+				<br></br>				
+				<h:form id="fmrActeurs" enctype="multipart/form-data">
+					<p:dataTable var="item" value="#{beanRegisterPersonne.personnes}"
+						id="listActeurs" widgetVar="table" emptyMessage="Acteur no trouvé"
+						paginator="true" rows="5"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+				            			   {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" style="width:1000px;font-size:13px;">
+	
+						<f:facet name="header">
+		                	Liste d'acteurs
+		                </f:facet>
+	
+						<p:column headerText="Photo">
+							<h:outputText value="#{item.idPersonne}" />	
+						</p:column>
+						
+						<p:column headerText="Nom" filterBy="#{item.nom}"
+							filterMatchMode="contains" footerText="contient">
+							<h:outputText value="#{item.nom}" />
+						</p:column>
+	
+						<p:column headerText="Prenom" filterBy="#{item.prenom}"
+							filterMatchMode="contains" footerText="contient">
+							<h:outputText value="#{item.prenom}" />
+						</p:column>
+	
+						<p:column headerText="Date de Naissance"
+							filterBy="#{item.dateNaissance}" filterMatchMode="contains"
+							footerText="contient">
+							<h:outputText value="#{item.dateNaissance}" />
+						</p:column>
+	
+						<p:column  headerText="">
+							<center>
+							 	<h:inputHidden value = "#{beanRegisterPersonne.cod}"/>															
+							    <p:commandButton value="Photo"  onclick="PF('dialogPhotoPersonne').show()"/>						    								  
+							</center>
+						</p:column>
+													
+					</p:dataTable>				
+										
+				</h:form>
+				
+				<p:dialog header="Photo" widgetVar="dialogPhotoPersonne">
+					<h:form id="frmDialogPhotoPersonne" enctype="multipart/form-data" modal="true">
+						<p:panel value ="Photo">
+							<h:panelGrid columns="3" cellpadding="5">
+								<h:outputLabel value = "Photo:"/>
+								<p:panel>	
+									<h:inputHidden></h:inputHidden>							
+									<p:fileUpload id ="txtPhoto" value="1" mode="simple"/>
+									<p:commandButton value="Photo" ajax="true" actionListener="#{beanRegisterPersonne.uploadPhoto()}"/>										    						
+								</p:panel>
+							</h:panelGrid>
+						</p:panel>
+					</h:form>
+				</p:dialog>	
+					
+			</center>
+			
+		</ui:define>
+
+		<ui:define name="footer">               
+	    	<h:outputText value="#{beanRegisterPersonne.personne.idPersonne}"/>
+	    </ui:define>
+            
+        </ui:composition>>
+
+	 </h:body>
+</html>

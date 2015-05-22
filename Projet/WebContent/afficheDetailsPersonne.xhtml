@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	
+
+
+<ui:composition template="/resources/template/common.xhtml">
+
+	<ui:define name="content">
+
+		<p:layoutUnit position="center">
+
+			<h:form id="a">
+				<p:carousel>
+					<h:panelGrid columns="3" style="width:1000px" cellpadding="5"
+						columnClasses="label,value">
+						
+							
+
+							<p:graphicImage value="/resources/images/film/1.png" width="80%"
+									height="100%" cache="false" alt="Sin definir"
+									style="border-radius: 4px; 
+							box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+
+
+						<h:panelGrid columns="2" style="width:100px; padding-left : 100px" cellpadding="5"
+							columnClasses="label,value">
+
+							<h:outputLabel value="#{msg['label.titre']}" for="titreFilm" />
+							<h:outputText id="titreFilm" value="#{beanPersonneFilm.detailPersonneFilm.personneFilm.nom}" />
+
+							<h:outputLabel value="#{msg['label.date']}" for="dateFilm" />
+							<h:outputText id="dateFilm"
+								value="#{beanPersonneFilm.detailPersonneFilm.personneFilm.prenom}" />
+
+							<h:outputLabel value="#{msg['label.note']}" for="noteFilm" />
+							<h:outputText id="noteFilm" value="#{beanPersonneFilm.detailPersonneFilm.personneFilm.dateNaissance}" />
+
+							<h:outputLabel value="#{msg['label.cout']}" for="coutFilm" />
+							<h:outputText id="coutFilm" value="#{beanPersonneFilm.detailPersonneFilm.personneFilm.popularite}" />
+						</h:panelGrid>
+						
+												
+					</h:panelGrid>
+				</p:carousel>
+			</h:form>
+
+
+			<!-- ////////////////////////////////////////////
+			////////////////////////////////////////////
+			/////////AFFICHER LES FILM     //////////
+			////////////////////////////////////////////
+			//////////////////////////////////////////// -->
+			
+			<h:form>
+				<p:carousel value="#{beanPersonneFilm.lstFilmPersone}"
+					headerText="#{msg['label.film']}" var="film" itemStyleClass="carItem"
+					numVisible="2" circular="true" effectDuration="1000"
+					style="width:100%">
+
+					<h:panelGrid columns="2" style="width:100%" cellpadding="15"
+						columnClasses="label,value">
+
+						<f:facet name="header" style="align:center">
+							<p:graphicImage value="/resources/images/film/1.png" width="100"
+								height="100" cache="false" alt="Sin definir"
+								style="border-radius: 4px; 
+									box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+						</f:facet>
+
+						<h:outputText value="#{msg['label.nom']} " />
+						<h:outputText value="#{beanPersonneFilm.detailPersonneFilm.filmDetail.nom}" />
+
+						<h:outputText value="#{msg['label.date_sortie']}" />
+						<h:outputText value="#{beanPersonneFilm.detailPersonneFilm.filmDetail.anneeSortie}" />
+
+						<h:outputText value="#{msg['label.note']} " />
+						<h:outputText value="#{beanPersonneFilm.detailPersonneFilm.filmDetail.note}"
+							style="color:#{car.color}" />
+
+						<h:outputText value="#{msg['label.cout']} " />
+						<h:outputText value="#{beanPersonneFilm.detailPersonneFilm.filmDetail.cout}" />
+						
+						<p:commandButton id="AjouterRecompense" value="#{msg['label.ajouter_recompense']}"
+						oncomplete="PF('dlgModifRecompense').show()" />
+					
+						
+					</h:panelGrid>
+
+				</p:carousel>
+			</h:form>
+
+			<!-- ////////////////////////////////////////////
+			////////////////////////////////////////////
+			/////////AFFICHER LES  RECOMPENSE//////////
+			////////////////////////////////////////////
+			//////////////////////////////////////////// -->
+			
+			<h:form>
+				<p:carousel value="#{beanRecompenseFilm.recompensePersonnesFilms}"
+					headerText="#{msg['label.recompense_acteur']}" var="recompense" itemStyleClass="carItem"
+					numVisible="2" circular="true" effectDuration="1000"
+					style="width:100%">
+
+					<h:panelGrid columns="2" style="width:100%" cellpadding="15"
+						columnClasses="label,value">
+
+						<f:facet name="header" style="align:center">
+							<p:graphicImage value="/resources/images/film/1.png" width="100"
+								height="100" cache="false" alt="Sin definir"
+								style="border-radius: 4px; 
+									box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+						</f:facet>
+
+						<h:outputText value="#{msg['label.nom']} " />
+						<h:outputText value="#{recompense.prixRecompense.nomPrix}" />
+
+						<h:outputText value="#{msg['label.date_sortie']} " />
+						<h:outputText value="#{recompense.prixRecompense.description}" />
+						
+					</h:panelGrid>
+
+				</p:carousel>
+			</h:form>
+	
+		
+		<!-- Dialog Modification Recompense -->
+		<h:form id="frmModifRecompense">			
+			<p:dialog id="dlgModifRecompense" widgetVar="dlgModifRecompense" modal="false">					
+				<p:messages autoUpdate="true" />
+				<ui:include src="/dialog_pro/dialogModificationRecompensePersonne.xhtml" />
+				<p:commandButton value="#{msg['label.valider']}"   action="#{beanModificationRecompensePersonne.ajoutRecompense()}" update="@this" oncomplete="PF('dlgModifRecompense').hide()"/>
+			</p:dialog>
+		</h:form>
+			
+			
+		</p:layoutUnit>
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

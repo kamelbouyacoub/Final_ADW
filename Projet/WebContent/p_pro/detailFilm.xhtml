@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<h:body>
+	
+		<ui:composition template="/resources/templates/common.xhtml">
+			
+			<ui:define name="content">
+			    <!-- Formulaire Acteurs -->
+				<center>
+					<h:form id="frmDetailPersonne">
+						<p:growl id="growl" showDetail="true" sticky="false" />
+						<p:dataTable id="tableDetailFilm" var="acteur" value="#{beanFilmGeneral.getPersonneDansFilm()}"
+									 style="width:500px;font-size:13px;">
+							
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Acteurs" />							
+								</p:outputPanel>
+							</f:facet>
+							
+							<p:column id="photo" headerText="Photo" style="width:20px">
+								<center>
+									<p:graphicImage value="/resources/images/2.jpg" width="70"
+										height="70" cache="false" alt="Sin definir"
+										style="border-radius: 4px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+								</center>
+							</p:column>
+							
+							<p:column  id="nom" headerText="Nom" style="width:80px">
+								<h:outputText value="#{acteur.personneFilm.prenom} #{acteur.personneFilm.nom}" />
+							</p:column>
+							
+							<p:column  id="modification" style="width:10px">
+								<p:commandButton value="Detail" action="#{beanFilmGeneral.choisirPersonneFilmEvent(acteur.personneFilm.idPersonne)}" 
+												 actionListener="#{beanFilmGeneral.getRolPersonneFilm()}"  
+								 				 oncomplete="PF('dlgDetailPersonneFilm').show()" 
+								 				 update=":frmDialogDetailPersonneFilm" />
+							</p:column>
+							
+						</p:dataTable>
+					</h:form>
+				</center>
+				
+				<!-- Formulaire Recompeses -->
+				<center>
+					<h:form id="frmDetailRecompense">
+						<p:growl id="growl" showDetail="true" sticky="false" />
+						<p:dataTable id="tableDetailRecompense" var="recompenseFilm" value="#{beanFilmGeneral.getLstRecompenseFilm()}"
+									 style="width:500px;font-size:13px;">
+							
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Recompeses" />							
+								</p:outputPanel>
+							</f:facet>
+							
+							<p:column id="photo" headerText="Photo" style="width:20px">
+								<center>
+									<p:graphicImage value="/resources/images/2.jpg" width="70"
+										height="70" cache="false" alt="Sin definir"
+										style="border-radius: 4px; 
+										box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+								</center>
+							</p:column>
+							
+							<p:column  id="recompense" headerText="Recompense" style="width:80px">
+								<h:outputText value="#{recompenseFilm.recompensePrix.nomPrix}" />
+							</p:column>
+							
+							<p:column  id="modification" style="width:10px">
+								<p:commandButton value="Detail" />
+							</p:column>
+							
+						</p:dataTable>
+					</h:form>
+				</center>
+				
+				
+				
+				
+				<!-- Dialog affiche Personne Film -->
+				<h:form id="frmDialogDetailPersonneFilm">
+					<p:dialog id="dialogDetailPersonneFilm" header="Acteur" widgetVar="dlgDetailPersonneFilm" modal="true">					
+						 
+						<p:dataScroller value="#{beanFilmGeneral.personne}" var="acteurFilm" chunkSize="10" >
+								
+								<p:graphicImage value="/resources/images/2.jpg" width="70" height="70" 
+												cache="false" alt="Sin definir"	style="border-radius: 4px; 
+												ox-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />									
+					            <p:outputPanel>
+					            
+					                <h:panelGrid columns="2" cellpadding="5" >
+					                    <h:outputText value="Prenom:" />
+					                    <h:outputText value="#{beanFilmGeneral.personne.prenom}" style="font-weight: bold"/>
+					 
+					                    <h:outputText value="Nom:" />
+					                    <h:outputText value="#{beanFilmGeneral.personne.nom}" style="font-weight: bold"/>
+					 
+					                    <h:outputText value="Date Naissance:" />
+					                    <h:outputText value="#{beanFilmGeneral.personne.dateNaissance}" style="font-weight: bold"/>
+					                    
+					                    <h:outputText value="Popularite:" />
+					                    <h:outputText value="#{acteurFilm.popularite}" style="font-weight: bold"/>
+					                    
+					                    <h:outputText value="Realisateur:" />
+					                    <h:outputText value="#{beanFilmGeneral.detailRolPersonne.realise}" style="font-weight: bold"/>
+					                    
+					                    <h:outputText value="Joue:" />
+					                    <h:outputText value="#{beanFilmGeneral.detailRolPersonne.joue}" style="font-weight: bold"/>
+					                   	
+					                   	<h:outputText value="Produit:" />
+					                    <h:outputText value="#{beanFilmGeneral.detailRolPersonne.produit}" style="font-weight: bold"/>				                   
+					                	
+					                						                	
+					                	<center>
+					                		<p:commandButton value="Modifier"  oncomplete="PF('dialogEditerActeur').show()" update =":frmEditerActeur"/>
+			                			</center>			                
+			                
+					                </h:panelGrid>
+					            </p:outputPanel>
+					    </p:dataScroller>
+					</p:dialog>
+				</h:form>
+				
+				
+				<h:form id="frmEditerActeur">
+	
+					<p:dialog id="dlgEditerActeur" header="Ajout Modification"
+							  widgetVar="dialogEditerActeur" resizable="false"  modal="true">
+	
+						<p:growl id="growl" showDetail="true" sticky="false" life="10000" />
+						
+						<h:panelGrid id="display" columns="2" cellpadding="5"
+							         style="margin:0 auto;">
+	
+							<f:facet name="header">
+								<h:outputLabel value="Modification" />
+							</f:facet>
+	
+							<h:outputText value="Prenom:" />
+							<h:inputText value="#{beanFilmGeneral.personne.prenom}"
+								         style="font-weight: bold" />
+	
+							<h:outputText value="Nom:" />
+							<h:inputText value="#{beanFilmGeneral.personne.nom}"
+								         style="font-weight: bold" />
+	
+							<h:outputText value="Date Naissance:" />
+							<h:inputText value="#{beanFilmGeneral.personne.dateNaissance}"
+								         style="font-weight: bold" />
+	
+							<h:outputText value="Popularite:" />
+							<h:inputText value="#{beanFilmGeneral.personne.popularite}"
+								         style="font-weight: bold" />
+	
+							<h:outputText value="photo" />
+							<h:inputText value="#{beanFilmGeneral.detailRolPersonne.realise}"
+										 style="font-weight: bold" />
+										 
+							<center>
+								<p:commandButton value="Valider" actionListener ="#{beanFilmGeneral.save()}"
+												 oncomplete="PF('dialogEditerActeur').hide()"/>		
+						    </center>
+										 
+						</h:panelGrid>					
+	
+					</p:dialog>
+	
+				</h:form>
+				
+
+
+
+		</ui:define>
+	
+			<ui:define name="footer">
+				<h:outputText value="Footer" />
+			</ui:define>
+	
+		</ui:composition>
+	
+	</h:body>
+
+</html>

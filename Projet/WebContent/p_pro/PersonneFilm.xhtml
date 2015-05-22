@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/resources/templates/common.xhtml">
+
+		<ui:define name="content">
+			<center>
+
+				<h:body>
+					<h:form id="AjoutModification">
+						<p:commandButton value="Ajouter une Modifcation"
+							actionListener="#{beanModificationFilm.ajoutEvent(actionEvent)}"
+							update=":edit:editP"
+							oncomplete="PF('ajoutModificationFilm').show()" />
+
+					</h:form>
+					<br />
+					<h:form id="a">
+						<p:growl id="growl" showDetail="true" sticky="false" />
+						<p:dataTable var="modFilm"
+							value="#{beanModificationFilm.listModifFilm}" id="AjoutTab"
+							widgetVar="ModificationTable"
+							emptyMessage="Modification non trouvé" paginator="true" rows="5"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" style="width:1000px;font-size:13px">
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Liste des Modification des films" />
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column id="modificationId" headerText="ID"
+								filterBy="#{modFilm.idModification}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.idModification}" />
+							</p:column>
+
+   						    <p:column headerText="ID clientPro" id="idClientPro" filterBy="#{modFilm.clientProFilm.idUtilisateur}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{modFilm.clientProFilm.idUtilisateur}" />
+			                </p:column>
+			                
+			                <p:column headerText="id gestionnaire" id="idGestionnaire" filterBy="#{modFilm.gestionnaireFilm.idUtilisateur}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{modFilm.gestionnaireFilm.idUtilisateur}" />
+			                </p:column>	
+			                
+			                 <p:column headerText="id film" id="filmId" filterBy="#{modFilm.film.idFilm}" filterMatchMode="contains" footerText="contient">
+			               		 <h:outputText value="#{modFilm.film.idFilm}" />
+							</p:column> 
+
+							 <p:column headerText="nom" id="nom" filterBy="#{modFilm.nomMod}"
+								filterMatchMode="contains" footerText="contient">
+								<h:outputText value="#{modFilm.nomMod}" />
+							</p:column>
+
+							<p:column headerText="annee sortie" id="anneee_sortie"
+								filterBy="#{modFilm.anneeSortieMod}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.anneeSortieMod}" />
+							</p:column>
+
+							<p:column headerText="Côut" id="cout"
+								filterBy="#{modFilm.coutMod}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.coutMod}" />
+							</p:column>
+
+							<p:column headerText="Photo" id="photo"
+								filterBy="#{modFilm.photoMod}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.photoMod}" />
+							</p:column>
+
+							<p:column headerText="Note" id="note"
+								filterBy="#{modFilm.noteMod}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.noteMod}" />
+							</p:column>
+
+							<p:column headerText="Etat" id="etat"
+								filterBy="#{modFilm.etat}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.etat}" />
+							</p:column>
+
+							<p:column headerText="Description Etat" id="descriptionEtat"
+								filterBy="#{modFilm.descriptionEtat}" filterMatchMode="contains"
+								footerText="contient">
+								<h:outputText value="#{modFilm.descriptionEtat}" />
+							</p:column>
+							<p:column >
+			                
+			                	<center>
+			                    <p:commandButton id="Editer" value ="Editer" update=":Actualise:displayed" oncomplete="PF('modificationFilmEdit').show(); " actionListener="#{beanFilms.editEvent(film.idFilm)}"/>
+			                	</center>
+			                </p:column>
+			                <p:column >
+			                	<center>
+			                    <p:commandButton id="Supprimer" value="Supprimer" update=":a:AjoutTab, :a:growl"  action="#{beanModificationFilm.delet(modFilm) }"/>
+			                	</center>
+			                </p:column>
+			               
+						</p:dataTable>
+					</h:form>
+
+					<h:form id="edit">
+
+						<p:dialog header="Ajout Modification"
+							widgetVar="ajoutModificationFilm" resizable="false" id="editP"
+							modal="true">
+
+							<p:growl id="growl" showDetail="true" sticky="false" life="10000" />
+							<h:panelGrid id="display" columns="2" cellpadding="4"
+								style="margin:0 auto;">
+
+								<f:facet name="header">
+									<h:outputLabel value="bonjour" />
+								</f:facet>
+								
+								 <h:outputLabel for="nom" title="Nom" value="Nom:" />
+			                    <h:inputText value="#{beanModificationFilm.modfiFilm.nomMod}"  id="nom" required="true"/>
+			                    
+			                    <h:outputLabel for="anneeSortie"  value="année Sortie:"/>
+			                    <h:inputText value="#{beanModificationFilm.modfiFilm.anneeSortieMod}"  id="anneeSortie" required="true"/>
+			                    
+								
+								<h:outputLabel for="cout" title="Coût" value="Coût:" />
+			                    <h:inputText value="#{beanModificationFilm.modfiFilm.coutMod}"  id="cout" required="true"/>
+			                    	
+			                    <h:outputLabel for="photo" title="Photo" value="Photot:" />
+			                    <h:inputText value="#{beanModificationFilm.modfiFilm.photoMod}"  id="photo" required="true"/>
+			                    
+			                    <h:outputLabel for="note" title="Photo" value="Photot:" />
+			                    <h:inputText value="#{beanModificationFilm.modfiFilm.noteMod}"  id="note" required="true"/>
+			                    
+							</h:panelGrid>
+							<p:separator />
+							<p:commandButton value="Enregistrer" update=":a:AjoutTab, growl"
+								actionListener="#{beanModificationFilm.ajoutp(actionEvent) }"
+								oncomplete="PF('AjoutModification').hide()" />
+						</p:dialog>
+
+					</h:form>
+					
+			     	<h:form id="Actualise">
+			            <p:dialog header="Modification" widgetVar="modificationFilmEdit" resizable="false" id="editPer" modal="true">
+			                <p:growl id="growl" showDetail="true" sticky="false" />
+			                <h:panelGrid id="displayed" columns="2" cellpadding="4" style="margin:0 auto;">
+			 
+			                    <f:facet name="header">
+			                        <h:outputLabel value="bonjour"/>
+			                    </f:facet>			                    
+			                   
+			 
+			                </h:panelGrid>
+			                <p:separator/>
+			                <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{beanPersonne.edition(actionEvent) }" oncomplete="PF('personneEdit').hide()"/>
+			            </p:dialog>
+			 
+			 			
+			        </h:form>
+			     	
+			     	
+				</h:body>
+
+			</center>
+		</ui:define>
+
+		<ui:define name="footer">
+
+		</ui:define>
+
+	</ui:composition>>
+
+	 </h:body>
+</html>

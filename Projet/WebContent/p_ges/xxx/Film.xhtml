@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+		  xmlns:p="http://primefaces.org/ui">
+
+	 <h:body>
+    
+        <ui:composition template="/resources/templates/common.xhtml">
+
+		<ui:define name="content">
+			<center>
+				
+				<h:body>
+							       
+			        <h:form id="AjoutF">
+			            <p:commandButton value="Ajouter un film" actionListener="#{beanFilms.ajoutEvent(actionEvent)}" 
+			            				 update=":edit:editP" oncomplete="PF('ajoutFilm').show()"/>
+			        </h:form>
+			        
+			        
+			        <br/>
+			        <h:form id="a">
+			            <p:growl id="growl" showDetail="true" sticky="false"  />
+			            <p:dataTable var="film" value="#{beanFilms.lstFilms}" id="AjoutTab" widgetVar="FilmTable"
+			                         emptyMessage="Personne non trouvé" paginator="true" rows="5" 
+			                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" style="width:1000px;font-size:13px" >
+			 
+			               <f:facet name="header">
+			                    <p:outputPanel>
+			                        <h:outputText value="Liste Acteurs" />			                       
+			                    </p:outputPanel>
+			                </f:facet>
+			 
+			 
+			 				<p:column id="photo" headerText="PHOTO" style="width:300px">
+									<center>
+										<p:graphicImage value="/resources/images/2.jpg" width="70" height="70" 
+													cache="false" alt="Sin definir" style="border-radius: 4px; 
+													box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)"/>									
+									</center>
+							</p:column>
+			 
+			 
+			                <p:column id="filmId" headerText="ID" filterBy="#{film.idFilm}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{film.idFilm}" />
+			                </p:column>
+			                
+			                <p:column headerText="Nom" id="filmNom" filterBy="#{film.nom}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{film.nom}" />
+			                </p:column>
+			                
+			                <p:column headerText="Année Sortie" id="filmAnneeSortie" filterBy="#{film.anneeSortie}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{film.anneeSortie}" />
+			                </p:column>	
+			                
+			                 <p:column headerText="Coût" id="filmCout" filterBy="#{film.cout}" filterMatchMode="contains" footerText="contient">
+			               		 <h:outputText value="#{film.cout}" />
+							</p:column>
+							
+							<p:column headerText="Note" id="filmNote" filterBy="#{film.note}" filterMatchMode="contains" footerText="contient">
+			               		 <h:outputText value="#{film.note}" />
+							</p:column>
+							
+							
+							 
+			                <p:column >
+			                	<center>
+			                    <p:commandButton id="Editer" value ="Editer" update=":Actualise:displaye" oncomplete="PF('filmEdit').show();" actionListener="#{beanFilms.editEvent(film.idFilm)}"/>
+			                	</center>
+			                </p:column>
+			                <p:column >
+			                	<center>
+			                    <p:commandButton id="Supprimer" value="Supprimer" update=":a:AjoutTab, :a:growl"  action="#{beanFilms.delet(film) }"/>
+			                	</center>
+			                </p:column>
+			            </p:dataTable>
+			        </h:form>
+			 
+			 
+			 		
+			 	<!-- Dialog pour Ajouter un Film --> 
+			 
+			        <h:form id="edit">
+			 
+			            <p:dialog header="Ajout Film" widgetVar="ajoutFilm" resizable="false" id="editP" modal="true">
+			 
+			                <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+			                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+			 
+			                    <f:facet name="header">
+			                        <h:outputLabel value="bonjour"/>
+			                    </f:facet>
+			 
+			                    <h:outputLabel for="nom" title="Nom" value="Nom:" />
+			                    <h:inputText value="#{beanFilms.film.nom}"  id="nom" required="true"/>
+			                    
+			                    <h:outputLabel for="anneeSortie"  value="année Sortie:"/>
+			                    <h:inputText value="#{beanFilms.film.anneeSortie}"  id="anneeSortie" required="true"/>
+			                    
+								
+								<h:outputLabel for="cout" title="Coût" value="Coût:" />
+			                    <h:inputText value="#{beanFilms.film.cout}"  id="cout" required="true"/>
+			                    
+								<!-- <h:outputLabel for="note" title="Note" value="Note "  /> -->
+       							<!-- <p:rating value="#{beanFilms.film.note}" id="note" required="true"/> -->
+										
+								
+								
+									
+							</h:panelGrid>
+			                <p:separator/>
+			                <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{beanFilms.ajoutFilm(actionEvent) }" oncomplete="PF('ajoutFilm').hide()"  />
+			            </p:dialog>
+			 
+			        </h:form>
+			 
+			 
+			 
+			 
+			 
+			 	<!-- Dialog pour faire la Modification d'un film -->
+			 	
+			        <h:form id="Actualise">
+			            <p:dialog header="Modification" widgetVar="filmEdit" resizable="false" id="editPer" modal="true">
+			                <p:growl id="growl" showDetail="true" sticky="false" />
+			                <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+			 
+			                    <f:facet name="header">
+			                        <h:outputLabel value="bonjour"/>
+			                    </f:facet>
+			 
+			                    <h:outputLabel for="nom" title="Nom" value="Nom:" />
+			                    <h:inputText value="#{beanFilms.film.nom}"  id="nom" required="true"/>
+			                    
+			                    <h:outputLabel for="anneeSortie"  value="année Sortie:"/>
+			                    <h:inputText value="#{beanFilms.film.anneeSortie}"  id="anneeSortie" required="true"/>
+			                    
+								<h:outputLabel for="cout" title="Coût" value="Coût:" />
+			                    <h:inputText value="#{beanFilms.film.cout}"  id="cout" required="true"/>
+			                    
+			                    <h:outputLabel for="note" title="Note" value="Note :" />
+			                    <h:inputText value="#{beanFilms.film.note}"  id="note" required="true"/>
+			                    
+			                    
+								<!-- <h:outputLabel for="note" title="Note" value="Note "  /> -->
+       							<!-- <p:rating value="#{beanFilms.film.note}" id="note" required="true"/> -->
+			                   
+			                   
+			                   
+			                   
+			 
+			                </h:panelGrid>
+			                <p:separator/>
+			                <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{beanFilms.edition(actionEvent) }" oncomplete="PF('filmEdit').hide()"/>
+			            </p:dialog>
+			 
+			        </h:form>
+		 
+		    	</h:body>			
+					
+			</center>			
+		</ui:define>
+
+		<ui:define name="footer">               
+	    	
+	    </ui:define>
+            
+        </ui:composition>>
+
+	 </h:body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">	
+	
+	 		<p:panel header="#{msg['label.menu_join_nous']}">	
+				
+				<h:panelGrid columns="3" cellpadding="5">
+	
+					<h:outputLabel value="#{msg['label.nom']}:" />
+					<p:inputText id="txtNom" size="50" value="#{beanRegisterGes.gestionnaire.nom}" required="true" requiredMessage="#{msg['label.menu_join_nous']}">
+						<f:validator validatorId="videValidator" />
+					</p:inputText>
+					<p:message for="txtNom" />
+					
+					<h:outputLabel value ="#{msg['label.prenom']}:"/>
+					<p:inputText id = "txtPrenom" size="50" value ="#{beanRegisterGes.gestionnaire.prenom}"  required="true" requiredMessage="#{msg['label.prenom']}">
+						<f:validator validatorId = "videValidator"/>
+					</p:inputText>
+					<p:message for="txtPrenom"/>
+					
+					<h:outputLabel value = "#{msg['label.date_naissance']}:"/>
+					<p:calendar id ="txtDateNaissance"  value ="#{beanRegisterGes.gestionnaire.dateNaissance}"  required="true" requiredMessage="#{msg['label.date_naissance']}"/>
+					<p:message for="txtDateNaissance"/>	
+					
+					<h:outputLabel value = "#{msg['label.email']}:"/>
+					<p:inputText id = "txtEmail" size="50" title = "exemple: user@gmail.com" value ="#{beanRegisterGes.gestionnaire.email}"  required="true" requiredMessage="#{msg['label.email']}">
+						<f:validator validatorId = "videValidator"/>
+						<f:validator validatorId = "emailValidator"/>							
+					</p:inputText>
+					<h:panelGroup>
+                        <p:tooltip for="txtEmail" showEvent="focus" hideEvent="blur"/>
+                        <p:message for="txtEmail"/>
+                    </h:panelGroup>	
+                    
+                    <h:outputText value = "#{msg['label.pass']}:" />					
+        			<p:password id = "txtPassword" feedback = "true" inline = "true" size="50" value ="#{beanRegisterGes.gestionnaire.pass}"  required="true" requiredMessage="#{msg['label.pass']}">	        				
+						<f:validator validatorId = "videValidator"/>
+        			</p:password>
+        			<p:message for="txtPassword"/>
+        			
+        			<h:outputText value = "#{msg['label.pass_repete']}:" />					
+        			<p:password id = "txtPasswordRepete" feedback = "true" inline = "true" size="50" value ="#{beanRegisterGes.pass}"  required="true" requiredMessage="#{msg['label.pass']}:"> 
+        				<f:validator validatorId = "videValidator"/>
+        			</p:password>      					
+	       		    <p:message for="txtPasswordRepete"/>
+	       		    
+	       		    <h:panelGroup></h:panelGroup>
+	       		    
+	       		    <p:commandButton value="#{msg['label.enregistrer']}" action="#{beanRegisterGes.save()}" update="@all" oncomplete="PF('dlgRegistre').hide()"/>	
+						
+				</h:panelGrid>
+				
+			</p:panel>
+		
+		
+	
+</html>
+

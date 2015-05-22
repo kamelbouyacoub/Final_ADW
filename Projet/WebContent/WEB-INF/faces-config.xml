@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+   
+   <application>
+	 <resource-bundle>
+		<base-name>messages</base-name>
+		<var>msg</var>
+	</resource-bundle>
+	</application>		
+	
+	<converter>
+		<converter-id>convertisseurDate</converter-id>
+		<converter-class>converters.ConvertisseurDate</converter-class>
+	</converter>
+	
+	<navigation-rule>
+		<display-name>home.xhtml</display-name>
+		<from-view-id>/home.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/afficheDetailsFilm.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>afficheDetailsFilm.xhtml</display-name>
+		<from-view-id>/afficheDetailsFilm.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>visionPersonne</from-outcome>
+			<to-view-id>/afficheDetailsPersonne.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<validator>
+		<validator-id>emailValidator</validator-id>
+	    <validator-class>validators.EmailValidator</validator-class>
+    </validator>
+    
+    <validator>
+		<validator-id>videValidator</validator-id>
+	    <validator-class>validators.VideValidator</validator-class>
+    </validator>
+    
+    <managed-bean>
+		<managed-bean-name>beanFilms</managed-bean-name>
+		<managed-bean-class>beans.BeanFilms</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	 <managed-bean>
+		<managed-bean-name>beanSessionPro</managed-bean-name>
+		<managed-bean-class>beansSession.BeanSessionPro</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>beanRegisterPro</managed-bean-name>
+		<managed-bean-class>beans.BeanRegisterPro</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>beanRegisterPersonne</managed-bean-name>
+		<managed-bean-class>beans.BeanRegisterPersonne</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>beanPersonne</managed-bean-name>
+		<managed-bean-class>beans.BeanPersonne</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<managed-bean-name>beanFilmGeneral</managed-bean-name>
+		<managed-bean-class>beans.BeanFilmGeneral</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>beanPersonnePro</managed-bean-name>
+		<managed-bean-class>beans.BeanPersonnePro</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanGestionnaire</managed-bean-name>
+		<managed-bean-class>beans.BeanGestionnaire</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanSessionGestionnaire</managed-bean-name>
+		<managed-bean-class>beansSession.BeanSessionGestionnaire</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanRechercheFilm</managed-bean-name>
+		<managed-bean-class>beanRecherche.BeanRechercheFilm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanPersonneFilm</managed-bean-name>
+		<managed-bean-class>beans.BeanPersonneFilm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanRecompenseFilm</managed-bean-name>
+		<managed-bean-class>beans.BeanRecompenseFilm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanModificationRecompenseFilmPro</managed-bean-name>
+		<managed-bean-class>beanModification.BeanModificationRecompenseFilmPro</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanModificationRecompensePersonne</managed-bean-name>
+		<managed-bean-class>beanModification.BeanModificationRecompensePersonne</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanModificationPersonneFilmFilm</managed-bean-name>
+		<managed-bean-class>beanModification.BeanModificationPersonneFilmFilm</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanGestionnaireModifPersonneFilm</managed-bean-name>
+		<managed-bean-class>beanValidationGesstionnaire.BeanGestionnaireModifPersonneFilm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanGestionnaireModificationFilm</managed-bean-name>
+		<managed-bean-class>beanValidationGesstionnaire.BeanGestionnaireModificationFilm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanGestionnaireModifRole</managed-bean-name>
+		<managed-bean-class>beanValidationGesstionnaire.BeanGestionnaireModifRole</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanGestionnaireRecompenseFilm</managed-bean-name>
+		<managed-bean-class>beanValidationGesstionnaire.BeanGestionnaireRecompenseFilm</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>beanGestionnaireRecompensePersonne</managed-bean-name>
+		<managed-bean-class>beanValidationGesstionnaire.BeanGestionnaireRecompensePersonne</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>	
+	
+
+
+	
+
+</faces-config>

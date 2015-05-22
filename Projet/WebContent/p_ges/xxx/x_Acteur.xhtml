@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+		  xmlns:p="http://primefaces.org/ui">
+
+	 <h:body>
+    
+        <ui:composition template="/resources/templates/common.xhtml">
+
+		<ui:define name="content">
+			<center>
+				
+				<h:body>			       
+			        <h:form id="AjoutP">
+			            <p:commandButton value="Ajouter une Acteur" actionListener="#{beanPersonne.ajoutEvent(actionEvent)}" 
+			            				 update=":edit:editP" oncomplete="PF('ajoutActeur').show()"/>
+			        </h:form>
+			        <br/>
+			        <h:form id="a">
+			            <p:growl id="growl" showDetail="true" sticky="false"  />
+			            <p:dataTable var="modification" value="#{beanModificationActeurFilm.lstModif}" id="AjoutTab" widgetVar="modifTable"
+			                         emptyMessage="Personne non trouvé" paginator="true" rows="5" 
+			                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" style="width:1000px;font-size:13px" >
+			 
+			               <f:facet name="header">
+			                    <p:outputPanel>
+			                        <h:outputText value="Liste Modifications" />			                       
+			                    </p:outputPanel>
+			                </f:facet>
+			 
+			                <p:column id="NomFilm" headerText="Nom film" filterBy="#{modification.modFilmPersonne.nom}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{modification.modFilmPersonne.nom}" />
+			                    <h:inputHidden value ="#{modification.idGestionnaire}"></h:inputHidden>
+			                </p:column>
+			                
+			                <p:column headerText="Nom" id="personneNom" filterBy="#{beanModificationActeurFilm.acteur(modification.idPersonneFilm).nom}" filterMatchMode="contains" footerText="contient">
+			                <!--     <h:outputText value="#{beanModificationActeurFilm.acteur(modification.idPersonneFilm).nom}" /> -->
+			                </p:column>
+			                
+			                <p:column headerText="Jouer" id="jouer" filterBy="#{modification.jouer}" filterMatchMode="contains" footerText="contient">
+			                    <h:outputText value="#{modification.jouer}" />
+			                </p:column>
+			                	
+			              
+			                 <p:column headerText="Produit" id="Produit" filterBy="#{modification.produit}" filterMatchMode="contains" footerText="contient">
+			               		 <h:outputText value="#{modification.produit}" />
+							</p:column>
+							
+							 <p:column headerText="Description" id="description" filterBy="#{modification.description}" filterMatchMode="contains" footerText="contient">
+			               		 <h:outputText value="#{modification.description}" />
+							</p:column> 
+							
+							
+			                <p:column >
+			                	<center>
+			                    <p:commandButton id="Accepter" value ="Accepter" update=":Actualise:displaye" actionListener="#{beanModificationActeurFilm.accepter(modification)}"/>
+			                	</center>
+			                </p:column>
+			                <!-- <p:column >
+			                	<center>
+			                    <p:commandButton id="Supprimer" value="Supprimer" update=":a:AjoutTab, :a:growl"  action="#{beanModificationActeurFilm.delet(personne) }"/>
+			                	</center>
+			                </p:column> --> 
+			            </p:dataTable>
+			        </h:form>
+			 
+			        <h:form id="edit">
+			 
+			            <p:dialog header="Ajout Acteur" widgetVar="ajoutActeur" resizable="false" id="editP" modal="true">
+			 
+			                <p:growl id="growl" showDetail="true" sticky="false" life="10000"/>
+			                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+			 
+			                    <f:facet name="header">
+			                        <h:outputLabel value="bonjour"/>
+			                    </f:facet>
+			 
+			                    <h:outputLabel for="nom" title="Nom" value="Nom:" />
+			                    <h:inputText value="#{beanPersonne.personne.nom}"  id="nom" required="true"/>
+			                    <h:outputLabel for="prenom"  value="Prenom:"/>
+			                    <h:inputText value="#{beanPersonne.personne.prenom}"  id="prenom" required="true"/>
+			                    <h:outputLabel value="Date Naissance:" />
+								<p:calendar id="txtDateNaissance" value="#{beanPersonne.personne.dateNaissance}"
+											required="true" requiredMessage="Date Naissance" />		
+											
+							</h:panelGrid>
+			                <p:separator/>
+			                <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{beanPersonne.ajoutp(actionEvent) }" oncomplete="PF('personneAjout').hide()"  />
+			            </p:dialog>
+			 
+			        </h:form>
+			 
+			        <h:form id="Actualise">
+			            <p:dialog header="Modification" widgetVar="personneEdit" resizable="false" id="editPer" modal="true">
+			                <p:growl id="growl" showDetail="true" sticky="false" />
+			                <h:panelGrid id="displaye" columns="2" cellpadding="4" style="margin:0 auto;">
+			 
+			                    <f:facet name="header">
+			                        <h:outputLabel value="bonjour"/>
+			                    </f:facet>
+			 
+			                    <h:outputLabel for="nom" title="Nom" value="Nom:" style="color: crimson;" />
+			                    <h:inputText value="#{beanPersonne.personne.nom}"  id="nom" />
+			                    <h:outputLabel for="prenom"  value="Prenom:" style="color: crimson;"/>
+			                    <h:inputText value="#{beanPersonne.personne.prenom}"  id="prenom" />
+			                   
+			 
+			                </h:panelGrid>
+			                <p:separator/>
+			                <p:commandButton value="Enregistrer" update=":a:AjoutTab, growl" actionListener="#{beanPersonne.edition(actionEvent) }" oncomplete="PF('personneEdit').hide()"/>
+			            </p:dialog>
+			 
+			        </h:form>
+		 
+		    	</h:body>			
+					
+			</center>			
+		</ui:define>
+
+		<ui:define name="footer">               
+	    	
+	    </ui:define>
+            
+        </ui:composition>>
+
+	 </h:body>
+</html>

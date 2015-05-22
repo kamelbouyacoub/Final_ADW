@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	
+	<p:layoutUnit position="west" size="200" header="Left" 	collapsible="true"> 
+		<h:form id="frmMenu" >
+			<p:growl id="msgRegisterPro" showDetail="true" sticky="false" />		
+			<p:menu>
+				<p:submenu label="#{msg['label.menu']}">
+					<p:menuitem value="#{msg['label.menu_accueil']}" outcome="/home"/>
+					<p:menuitem value="#{msg['label.menu_nous']}" outcome="/Nous"/>
+					<p:menuitem value="#{msg['label.connexion']}" oncomplete="PF('dlgSession').show()" rendered="#{beanSessionPro.c.idUtilisateur == -1}" update="@this,:frmSession"/>												
+					<p:menuitem value="#{msg['label.menu_join_nous']}" update="@this,:frmRegitrePro" oncomplete="PF('dlgRegistrePro').show()" />
+					<p:menuitem value="#{msg['label.menu_ges']}" outcome="/p_ges/gestionnaire"/>				
+				</p:submenu>
+				
+				<p:submenu label="#{msg['label.menu_pro']}" rendered="#{beanSessionPro.c.idUtilisateur != -1}">
+					<p:menuitem value="#{msg['label.menu_ajouter_film']}" oncomplete="PF('dlgAjouterFilm').show()"/>
+					<p:menuitem value="#{msg['label.menu_ajouter_personnes']}" oncomplete="PF('dlgAjouterPersonne').show()"/>
+					<p:menuitem value="#{msg['label.deconnexion']}" action="#{beanSessionPro.close()}" update="@all"/>
+				</p:submenu>
+						
+			</p:menu>			
+		</h:form>		
+	</p:layoutUnit>
+	
+	<!-- dialog registerPro -->	
+	<h:form id="frmRegitrePro">				
+		<p:dialog id="dialogRegistrePro" widgetVar="dlgRegistrePro" modal="false">
+			<ui:include src="/dialog_pro/dialogRegister.xhtml" />			
+		</p:dialog>      
+	</h:form>
+	
+	<!-- dialog session -->
+	<h:form id="frmSession">
+		<p:dialog id="dialogSession" widgetVar="dlgSession" modal="false">
+			<ui:include src="/dialog_pro/dialogSession.xhtml" />	
+		</p:dialog>
+	</h:form>
+	
+	
+	
+	<!-- dialog ajouter personne -->
+	<h:form id="frmAjouterPersonne" enctype="multipart/form-data">
+		<p:dialog id="dialogAjouterPersonne" widgetVar="dlgAjouterPersonne" modal="false">
+			<p:growl id="growlSavePersonne" showDetail="true" sticky="false" life="10000" />
+			<ui:include src="/dialog_pro/dialogAjouterPersonne.xhtml" />
+			<p:commandButton value="Ajouter" update="@this" actionListener="#{beanPersonnePro.findIdSession()}" action="#{beanPersonnePro.saveActeur()}" oncomplete="PF('dlgAjouterPersonne').hide()" ajax="false" />	
+		</p:dialog>
+	</h:form>
+	
+	<!-- dialog ajouter film -->
+	<h:form id="frmAjouterFilm" enctype="multipart/form-data">
+		<p:dialog id="dialogAjouterFilm" widgetVar="dlgAjouterFilm" modal="false">
+			<p:growl id="growlSaveFilm" showDetail="true" sticky="false" life="10000" />
+			<ui:include src="/dialog_pro/dialogAjouterFilm.xhtml" />
+			<p:commandButton value="Ajouter" update="@this" actionListener="#{beanPersonnePro.findIdSession()}" action="#{beanPersonnePro.saveFilm()}" oncomplete="PF('dlgAjouterFilm').hide()" ajax="false" />	
+		</p:dialog>
+	</h:form>
+
+</html>
+

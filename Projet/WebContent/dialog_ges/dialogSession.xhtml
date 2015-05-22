@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+<p:panel header="#{msg['label.session']}">
+	<h:panelGrid columns="2" cellpadding="5">
+
+		<p:outputLabel value="#{msg['label.email']}:" for="txtEmail" />
+		<p:inputText id="txtEmail" size="50" value="#{beanSessionGestionnaire.email}" />
+
+		<p:outputLabel value="#{msg['label.pass']}:" for="txtPassword" />
+		<p:password id="txtPassword" inline="true" size="50" value="#{beanSessionGestionnaire.password}" />
+
+		<h:panelGroup></h:panelGroup>
+
+		<p:commandButton value="#{msg['label.connexion']}" action="#{beanSessionGestionnaire.login()}" update="@all" />
+
+	</h:panelGrid>
+</p:panel>
+
+</html>
+

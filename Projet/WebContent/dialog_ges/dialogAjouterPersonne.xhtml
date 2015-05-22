@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+		<f:facet name="header">
+			<h:outputLabel value="Ajouter" />
+		</f:facet>
+		
+		<h:outputLabel for="nom" title="Nom" value="#{msg['label.nom']}:"/>
+		<p:inputText  id="nom"	value="#{beanGestionnaire.personneFilm.nom}" required="true" />
+		
+		<h:outputLabel for="prenom" value="#{msg['label.prenom']}:"/>
+		<p:inputText  id="prenom" value="#{beanGestionnaire.personneFilm.prenom}" required="true" />
+		
+		<h:outputLabel value="#{msg['label.date_naissance']}:"/>
+		<p:calendar id="txtDateNaissance" value="#{beanGestionnaire.personneFilm.dateNaissance}" required="true" requiredMessage="#{msg['label.date_naissance']}"/>
+		
+		<h:outputLabel for="photo" value="#{msg['label.photo']}:"/>
+		<p:fileUpload id="photo" value="#{beanGestionnaire.photo}" mode="simple"  />
+		
+		<h:inputHidden/>
+		<h:inputHidden/>
+		
+	</h:panelGrid>
+	
+	
+
+
+
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:panelGrid id="modifPersonneFilm" columns="2" cellpadding="4" style="margin:0 auto;">
+	
+		<f:facet name="header">
+			<h:outputLabel value="#{msg['label.ajout_recompense']}" />
+		</f:facet>
+	
+		<h:outputLabel value="#{msg['label.prix']}: " />			
+		<p:selectOneMenu id="menuPrix" value="#{beanModificationRecompensePersonne.idPrix}"  
+			panelStyle="width:180px" effect="fade" style="width:160px" filter="true" 
+			filterMatchMode="startsWith" >
+			
+			<f:selectItem itemLabel="" itemValue="-1" />				
+			<f:selectItems value="#{beanModificationRecompensePersonne.listPrix}" var="prix" 
+				itemValue="#{prix.idPrix}" itemLabel="#{prix.nomPrix}"/>
+				
+		</p:selectOneMenu>	
+		
+		<h:outputLabel value="#{msg['label.date']}: " />
+		<p:inputText id="txtDate" size="20" value="#{beanModificationRecompensePersonne.dateRemise}" required="true" 
+			requiredMessage="#{msg['label.date']}">
+			<f:validator validatorId="videValidator" />
+		</p:inputText>	
+		
+			<h:outputLabel value ="#{msg['label.description']}:"/>
+			<p:inputText id = "txtDescription" size="20" value ="#{beanModificationRecompensePersonne.description}"  required="true" requiredMessage="#{msg['label.description']}">
+				<f:validator validatorId = "videValidator"/>
+			</p:inputText>	
+		
+	</h:panelGrid>
+	
+	
+</html>

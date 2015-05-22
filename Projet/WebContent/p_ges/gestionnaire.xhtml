@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+  
+    
+        <ui:composition template="/resources/template/common_ges.xhtml">
+
+		<ui:define name="content">	
+			
+			<p:layoutUnit position="center">
+							
+					<p:growl id="msgModification" showDetail="true" />
+	
+					<h3 style="margin-top: 0">Modifications</h3>
+					<p:accordionPanel multiple="true" rendered="#{beanSessionGestionnaire.g.idUtilisateur != -1}">
+
+					<p:tab title="Modification Films">
+						<h:form id="frmModFilm">
+							<ui:include src="modificationFilm.xhtml" />
+						</h:form>												
+					</p:tab>
+
+					<p:tab title="Modification Personnes">
+						<h:form id="frmModPersonne">
+							<ui:include src="modificationPersonne.xhtml" />							
+						</h:form>	
+					</p:tab>
+
+					<p:tab title="Modification Role">
+						<h:form id="frmModRole">
+							<ui:include src="modificationRole.xhtml" />
+						</h:form>	
+					</p:tab>
+
+					<p:tab title="Modification Recompense du Film">
+						<h:form id="frmModRecFilm">
+							<ui:include src="modificationRecompenseFilm.xhtml" />
+						</h:form>
+					</p:tab> 		
+
+					<p:tab title="Modification Recompense du Personne">
+						<h:form id="frmModRecPersonne">
+							<ui:include src="modificationRecompensePersonne.xhtml" />
+						</h:form>
+					</p:tab>
+
+				</p:accordionPanel>
+				
+			</p:layoutUnit>		
+			
+		</ui:define>
+		
+		</ui:composition>        
+    
+</html>

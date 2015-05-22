@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable var="modRecFilm" value="#{beanGestionnaireRecompenseFilm.listModRecompenseFilm}"
+		id="modRecFilm" paginator="true" rows="10" style="width:100%;font-size:13px;">
+	
+		<f:facet name="loader">
+			<p:commandButton type="button" value="More"
+				icon="ui-icon-circle-triangle-s" />
+		</f:facet>
+	
+		<p:column headerText="Photo">
+			<center>
+				<p:graphicImage value="/resources/images/film/#{lstModRecFilm.modRecFilm.idFilm}.png"
+					width="70" height="70" cache="false" alt="Sin definir" style="border-radius: 4px;
+					box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+			</center>
+		</p:column>
+	
+		<p:column headerText="Nom">
+			<h:outputText value="#{modRecFilm.modRecFilm.nom}" />
+		</p:column>
+		
+		<p:column headerText="Prix">
+			<h:outputText value="#{beanGestionnaireRecompenseFilm.getNomPrix(modRecFilm.idPrix)}" />
+		</p:column>
+	
+		<p:column headerText="Date de Remise">
+			<center>
+				<h:outputText value="#{modRecFilm.dateRemise}" />
+			</center>
+		</p:column>		
+	
+		<p:column headerText="Description">
+			<h:outputText value="#{modRecFilm.description}" />
+		</p:column>
+	
+		<p:column headerText="Operation">
+			<center>
+				<h:panelGroup columns="2">
+					<p:commandButton value="Acepter"  action ="#{beanGestionnaireRecompenseFilm.valider(modRecFilm)}" update="modRecFilm"/>
+					<p:commandButton value="Rejeter"  action ="#{beanGestionnaireRecompenseFilm.rejeter(modRecFilm)}" update="modRecFilm"/>
+				</h:panelGroup>
+			</center>
+		</p:column>
+	
+	
+	</p:dataTable>
+	
+	
+
+
+
+</html>
+

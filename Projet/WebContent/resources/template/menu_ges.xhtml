@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	
+	<p:layoutUnit position="west" size="200" header="Left" 	collapsible="true"> 
+		<h:form id="frmMenuGestionnaire" >
+			<p:growl id="msgRegisterGestionnaire" showDetail="true" sticky="false" />		
+			<p:menu>
+				<p:submenu label="#{msg['label.menu']}" >
+					<p:menuitem value="#{msg['label.menu_accueil']}" outcome="/home"/>	
+					<p:menuitem value="#{msg['label.connexion']}" oncomplete="PF('dlgSession').show()" rendered="#{beanSessionGestionnaire.g.idUtilisateur == -1}" update="@this,:frmSession"/>							
+				</p:submenu>
+				
+				<p:submenu label="#{msg['label.menu_ges']}" rendered="#{beanSessionGestionnaire.g.idUtilisateur != -1}">
+					<p:menuitem value="#{msg['label.menu_ajouter_gestionnaire']}" oncomplete="PF('dlgRegister').show()"/>
+					<p:menuitem value="#{msg['label.menu_ajouter_film']}" oncomplete="PF('dlgAjouterFilm').show()"/>
+					<p:menuitem value="#{msg['label.menu_ajouter_personnes']}" oncomplete="PF('dlgAjouterPersonne').show()" />
+					<p:menuitem value="#{msg['label.deconnexion']}" action="#{beanSessionGestionnaire.close()}" update="@all"/>
+				</p:submenu>
+						
+			</p:menu>			
+		</h:form>		
+	</p:layoutUnit>
+	
+	<!-- dialog register -->
+	<h:form id="frmRegister">
+		<p:dialog id="dialogregister" widgetVar="dlgRegister" modal="false">
+			<ui:include src="/dialog_ges/dialogRegister.xhtml" />	
+		</p:dialog>
+	</h:form>
+	
+	<!-- dialog session -->
+	<h:form id="frmSession">
+		<p:dialog id="dialogSession" widgetVar="dlgSession" modal="false">
+			<ui:include src="/dialog_ges/dialogSession.xhtml" />	
+		</p:dialog>
+	</h:form>
+	
+	<!-- dialog ajouter personne -->
+	<h:form id="frmAjouterPersonne" enctype="multipart/form-data">
+		<p:dialog id="dialogAjouterPersonne" widgetVar="dlgAjouterPersonne" modal="false">
+			<p:growl id="growlSavePersonne" showDetail="true" sticky="false" life="10000" />
+			<ui:include src="/dialog_ges/dialogAjouterPersonne.xhtml" />
+			<p:commandButton value="Ajouter" update="@this" action="#{beanGestionnaire.saveActeur()}" oncomplete="PF('dlgAjouterPersonne').hide()" ajax="false" />
+		</p:dialog>
+	</h:form>
+	
+	<!-- dialog ajouter film -->
+	<h:form id="frmAjouterFilm" enctype="multipart/form-data">
+		<p:dialog id="dialogAjouterFilm" widgetVar="dlgAjouterFilm" modal="false">
+			<p:growl id="growlSaveFilm" showDetail="true" sticky="false" life="10000" />
+			<ui:include src="/dialog_ges/dialogAjouterFilm.xhtml" />
+			<p:commandButton value="Ajouter" update="@this" action="#{beanGestionnaire.saveFilm()}" oncomplete="PF('dlgAjouterFilm').hide()" ajax="false" />	
+		</p:dialog>
+	</h:form>	
+
+</html>
+

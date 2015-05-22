@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14309542760771" configfile="/Projet/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" x="122" y="178" id="pf14310185606100" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14310185606101" path="/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="afficheDetailsFilm.xhtml" x="338" y="178" id="pf14310185606102" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14310185606103" inlinks="pf14310185606101" path="/afficheDetailsFilm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="afficheDetailsPersonne.xhtml" x="554" y="178" id="pf14310185606104" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14310185606103" path="/afficheDetailsPersonne.xhtml"/>
+  <links id="pf14310185606101" target="pf14310185606102" source="pf14310185606100" outcome="success" redirect="true"/>
+  <links id="pf14310185606103" target="pf14310185606104" source="pf14310185606102" outcome="visionPersonne" redirect="true"/>
+</pageflow:Pageflow>

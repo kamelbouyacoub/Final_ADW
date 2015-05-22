@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+	
+<!-- 
+		<f:metadata>
+			<f:viewParam name="filmId" value="#{beanFilmGeneral.choisirFilmEvent}"/>
+		</f:metadata> -->
+
+<h:body>
+
+	<ui:composition template="/resources/templates/common.xhtml">
+
+
+		<ui:define name="content">
+
+			<h:form id="afficheDetailsFilm">
+
+				<p:fieldset	legend="#{beanFilmGeneral.film.nom}"
+					style="margin-bottom:20px; width:100%">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:graphicImage value="/resources/images/film/2.jpg" width="100%"
+							height="100%" cache="false" alt="Sin definir"
+							style="border-radius: 4px; 
+							box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+
+						<h:panelGrid columns="2" style="width:100px; padding-left : 100px"
+							cellpadding="5" columnClasses="label,value">
+
+
+							<h:outputLabel value="#{msg['label.titre']}" for="titreFilm" />
+							<h:outputText id="titreFilm" value="#{beanFilmGeneral.film.nom}" />
+							 
+
+							<h:outputLabel value="#{msg['label.date']}" for="dateFilm" />
+							<h:outputText id="dateFilm"
+								value="#{beanFilmGeneral.film.anneeSortie}" />
+
+							<h:outputLabel value="#{msg['label.note']}" for="noteFilm" />
+							<p:rating id="noteFilm" value="#{beanFilmGeneral.note}"  stars="5" >
+								 <p:ajax event="rate" listener="#{beanFilmGeneral.enregistrer()}" update ="afficheDetailsFilm"/>
+							</p:rating>
+							
+							 <h:outputLabel value="Moyenne" for="moyenneFilm" />
+							<h:outputText id="moyenneFilm" value="#{beanFilmGeneral.moyenne}" /> 
+							
+							<h:outputLabel value="#{msg['label.cout']}" for="coutFilm" />
+							<h:outputText id="coutFilm" value="#{beanFilmGeneral.film.cout}" />
+							
+							
+						</h:panelGrid>
+					</h:panelGrid>
+				</p:fieldset>
+
+			</h:form>
+
+			<!-- ////////////////////////////////////////////
+			////////////////////////////////////////////
+			/////////AFFICHER LES ACTEURS     //////////
+			////////////////////////////////////////////
+			//////////////////////////////////////////// -->
+				<h:form>
+					<p:carousel value="#{beanPersonneFilm.listActeurFilm}"
+						headerText="Acteurs" var="acteur" numVisible="2" circular="true"
+						effectDuration="1000" style="width:100%">
+
+						<h:panelGrid columns="2" style="width:100%" cellpadding="15"
+							columnClasses="label,value">
+
+							<f:facet name="header" style="align:center">
+								<p:graphicImage value="/resources/images/personne/101.jpg" width="100"
+									height="100" cache="false" alt="Sin definir"
+									style="border-radius: 4px; 
+									box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+							</f:facet>
+
+							<h:outputText value="Nom " />
+							<h:outputText value="#{acteur.personneFilm.nom}" />
+
+							<h:outputText value="Prenom" />
+							<h:outputText value="#{acteur.personneFilm.prenom}" />
+
+							<h:outputText value="Date Naissance:" />
+							<h:outputText value="#{acteur.personneFilm.dateNaissance}"
+								style="color:#{car.color}" />
+
+							<h:outputText value="Popularité" />
+							<h:outputText value="#{acteur.personneFilm.popularite}" />
+
+							<h:commandButton id="profils" value="Films" 
+								action="#{beanPersonneFilm.recupererPersonne(acteur.idDetailPersonneFilm)}" />
+
+						</h:panelGrid>
+
+					</p:carousel>
+				</h:form>
+			<!-- ////////////////////////////////////////////
+			////////////////////////////////////////////
+			/////////AFFICHER LES Producteurs    //////////
+			////////////////////////////////////////////
+			//////////////////////////////////////////// -->
+				<h:form>
+					<p:carousel value="#{beanPersonneFilm.listProducteurFilm}"
+						headerText="Producteurs" var="product" itemStyleClass="carItem"
+						numVisible="2" circular="true" effectDuration="1000"
+						style="width:100%">
+
+						<h:panelGrid columns="2" style="width:100%" cellpadding="15"
+							columnClasses="label,value">
+
+							<f:facet name="header" style="align:center">
+								<p:graphicImage value="/resources/images/2.jpg" width="100"
+									height="100" cache="false" alt="Sin definir"
+									style="border-radius: 4px; 
+									box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+							</f:facet>
+
+							<h:outputText value="Nom " />
+							<h:outputText value="#{product.personneFilm.nom}" />
+
+							<h:outputText value="Prenom" />
+							<h:outputText value="#{product.personneFilm.prenom}" />
+
+							<h:outputText value="Date Naissance:" />
+							<h:outputText value="#{product.personneFilm.dateNaissance}"
+								style="color:#{car.color}" />
+
+							<h:outputText value="Popularité" />
+							<h:outputText value="#{product.personneFilm.popularite}" />
+
+							<h:commandButton id="profils" value="Films" />
+						</h:panelGrid>
+
+					</p:carousel>
+				</h:form>
+			<!-- ////////////////////////////////////////////
+			////////////////////////////////////////////
+			/////////AFFICHER LES Réalisateurs//////////
+			////////////////////////////////////////////
+			//////////////////////////////////////////// -->
+				<h:form>
+					<p:carousel value="#{beanPersonneFilm.listRealisateurFilm}"
+						headerText="Realisateurs" var="realisateur"
+						itemStyleClass="carItem" numVisible="2" circular="true"
+						effectDuration="1000" style="width:100%">
+
+						<h:panelGrid columns="2" style="width:100%" cellpadding="15"
+							columnClasses="label,value">
+
+							<f:facet name="header" style="align:center">
+								<p:graphicImage value="/resources/images/2.jpg" width="100"
+									height="100" cache="false" alt="Sin definir"
+									style="border-radius: 4px; 
+									box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)" />
+							</f:facet>
+
+							<h:outputText value="Nom " />
+							<h:outputText value="#{realisateur.personneFilm.nom}" />
+
+							<h:outputText value="Prenom" />
+							<h:outputText value="#{realisateur.personneFilm.prenom}" />
+
+							<h:outputText value="Date Naissance:" />
+							<h:outputText value="#{realisateur.personneFilm.dateNaissance}"
+								style="color:#{car.color}" />
+
+							<h:outputText value="Popularité" />
+							<h:outputText value="#{realisateur.personneFilm.popularite}" />
+
+							<h:commandButton id="profils" value="Films" />
+						</h:panelGrid>
+
+					</p:carousel>
+				</h:form>
+
+			<!-- ////////////////////////////////////////////////////////
+			///////////AFFICHER LES RECOMPENSE DU FILM ///////////////
+			////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////// -->
+				<p:dataTable var="recompense"
+					value="#{beanRecompenseFilm.recompenseFilms}" style="width:780px">
+
+					<p:column headerText="Récompense">
+						<h:outputText value="#{recompense.recompensePrix.nomPrix}" />
+					</p:column>
+
+					<p:column headerText="Déscription">
+						<h:outputText value="#{recompense.recompensePrix.description}" />
+					</p:column>
+				</p:dataTable>
+			
+
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	 <h:body>
+    
+        <ui:composition template="/resources/templates/common.xhtml">
+
+		<ui:define name="content">
+			<center>
+				<h:form id="frmRegisterPro">
+				  <p:growl id="msgRegister" showDetail="true" sticky="false" />
+	   			    <!--<p:messages id="msgGeneral" showDeatail="true" autoUpdate="true" closable="true"/>	-->
+	   			    <p:panel header="Registre"> 
+	   			    
+		   			    <h:panelGrid columns="3" cellpadding="5">
+		   			    
+							<h:outputLabel value = "Nom:"/>
+							<p:inputText id = "txtNom" size="50" value ="#{beanRegisterPro.clientPro.nom}" required="true" requiredMessage="Nom">
+								<f:validator validatorId = "videValidator"/>
+							</p:inputText>
+							<p:message for="txtNom"/>
+							
+							<h:outputLabel value = "Prenom:"/>
+							<p:inputText id = "txtPrenom" size="50" value ="#{beanRegisterPro.clientPro.prenom}"  required="true" requiredMessage="Preom">
+								<f:validator validatorId = "videValidator"/>
+							</p:inputText>
+							<p:message for="txtPrenom"/>
+							
+							<h:outputLabel value = "Date Naissance:"/>
+							<p:calendar id ="txtDateNaissance"  value ="#{beanRegisterPro.clientPro.dateNaissance}"  required="true" requiredMessage="Date Naissance"/>
+							<p:message for="txtDateNaissance"/>	
+							
+							<h:outputLabel value = "E-mail:"/>
+							<p:inputText id = "txtEmail" size="50" title = "exemple: user@gmail.com" value ="#{beanRegisterPro.clientPro.email}"  required="true" requiredMessage="E-mail">
+								<f:validator validatorId = "videValidator"/>
+								<f:validator validatorId = "emailValidator"/>							
+							</p:inputText>
+							<h:panelGroup>
+	                            <p:tooltip for="txtEmail" showEvent="focus" hideEvent="blur"/>
+	                            <p:message for="txtEmail"/>
+	                        </h:panelGroup>				
+							
+							<h:outputText value = "Password:" />					
+		        			<p:password id = "txtPassword" feedback = "true" inline = "true" size="50" value ="#{beanRegisterPro.clientPro.pass}"  required="true" requiredMessage="Password">	        				
+								<f:validator validatorId = "videValidator"/>
+		        			</p:password>
+		        			<p:message for="txtPassword"/>
+		        			
+		        			<h:outputText value = "Répetér Password:" />					
+		        			<p:password id = "txtPasswordRepete" feedback = "true" inline = "true" size="50" value ="#{beanRegisterPro.pass}"  required="true" requiredMessage="Password"> 
+		        				<f:validator validatorId = "videValidator"/>
+		        			</p:password>      					
+			       		    <p:message for="txtPasswordRepete"/>
+			       		    
+			       		    <h:panelGroup></h:panelGroup>
+			       		    
+			       		    <p:commandButton value="Enregistrer" action="#{beanRegisterPro.save()}" update="frmRegisterPro"/>
+			       		    
+						</h:panelGrid>
+					</p:panel>	
+								
+				</h:form>		
+			</center>
+		</ui:define>
+
+		<ui:define name="footer">               
+	    	<h:outputText value="Footer"/>
+	    </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+	
+</html>

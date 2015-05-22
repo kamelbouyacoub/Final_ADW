@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+		<f:facet name="header">
+			<h:outputLabel value="Ajouter" />
+		</f:facet>
+		
+		<h:inputHidden/>
+		<h:inputHidden value="#{beanSessionPro.c.idUtilisateur}"/>
+		
+		<h:outputLabel for="nom" title="Nom" value="#{msg['label.nom']}:"/>
+		<p:inputText  id="nom"	value="#{beanPersonnePro.film.nom}" required="true" />
+		
+		<h:outputLabel for="anneeSortie" value="#{msg['label.annee_sortie']}:"/>
+		<p:inputText  id="anneeSortie" value="#{beanPersonnePro.film.anneeSortie}" required="true" />
+		
+		<h:outputLabel for="cout" value="#{msg['label.cout']}:"/>
+		<p:inputText id="cout" value="#{beanPersonnePro.film.cout}" required="true"/>
+		
+		<h:outputLabel for="photo" value="#{msg['label.photo']}:"/>
+		<p:fileUpload id="photo" value="#{beanPersonnePro.photo}" mode="simple" />
+		
+		<h:inputHidden/>
+		<h:inputHidden/>
+		
+	</h:panelGrid>
+	
+	
+
+
+
+</html>
+

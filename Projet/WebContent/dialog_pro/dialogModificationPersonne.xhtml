@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:panelGrid id="modifPersonneFilm" columns="2" cellpadding="4" style="margin:0 auto;">
+	
+		<f:facet name="header">
+			<h:outputLabel value="#{msg['label.ajout_acteur']}" />
+		</f:facet>
+	
+		<h:inputHidden />
+		<h:inputHidden value="#{beanSessionPro.c.idUtilisateur}" />
+	
+		<h:inputHidden />
+		<h:inputHidden value="#{beanFilmGeneral.film.idFilm}" />
+		
+		
+		<h:outputLabel value="#{msg['label.nom']}:" />			
+		<p:selectOneMenu id="menuPersonne" value="#{beanModificationPersonneFilmFilm.idPersonneFilm}"  
+			panelStyle="width:180px" effect="fade" style="width:160px" 
+			filter="true" filterMatchMode="startsWith" >
+			
+			<f:selectItem itemLabel="" itemValue="-1" />
+				
+			<f:selectItems value="#{beanPersonneFilm.listPersonneFilm}" 
+				var="personne" itemValue="#{personne.idPersonne}" 
+				itemLabel="#{personne.prenom} #{personne.nom}"/>
+				
+		</p:selectOneMenu>
+		
+		
+		<h:outputLabel value="#{msg['label.role']}:" />
+		 
+		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+	       
+	        <h:outputText value="#{msg['label.joue']}: "/>
+	        <p:selectBooleanCheckbox value="#{beanModificationPersonneFilmFilm.jouer}" />
+	 		
+	 		<h:outputText value="#{msg['label.produit']}: " />
+	        <p:selectBooleanCheckbox value="#{beanModificationPersonneFilmFilm.produit}" />
+	        
+	        <h:outputText value="#{msg['label.realise']}: " />
+	        <p:selectBooleanCheckbox value="#{beanModificationPersonneFilmFilm.realiser}" />	      
+	       
+   	    </h:panelGrid>	
+		
+		
+	</h:panelGrid>
+
+		
+</html>
+
